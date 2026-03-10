@@ -3,7 +3,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/source.env"
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-IMAGE_NAME="homeassistant/aarch64-homeassistant:stable"
+IMAGE_NAME="homeassistant/aarch64-homeassistant:latest"
 
 CONTAINER_NAME="home-assistant-server"
 
