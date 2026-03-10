@@ -1,237 +1,42 @@
-# Description
+# Cicada Home Assistant в Termux
 
-Correctly configures Udocker so that it works properly in Termux.
+<p align="center">
+  <img src="https://www.home-assistant.io/images/favicon-192x192.png" width="120" alt="Home Assistant">
+  <br><br>
+  <b>Полноценный Home Assistant прямо на Android без root через Termux + udocker</b>
+</p>
 
-**Update -** Thanks to [@IntinteDAO](https://github.com/termux/termux-packages/pull/24699), **udocker** is now officially available in the Termux APT Repo. I've updated the configs to use it.
+## Что вы получите
 
-<br>
+- Home Assistant → доступен в браузере по адресу  
+  **http://localhost:8123/**  
+- Не требуется root  
+- Не нужны сложные proot-дистрибутивы
 
-#### What's Udocker?
+## Требования
 
-It's a user-space implementation of Docker.
+- Android 7.0+
+- Termux (лучше с F-Droid)
+- ≈ 2–3 ГБ свободного места
+- Стабильный интернет на время первой установки
 
-This means that it can, without root or custom-kernel, run Docker images and containers.
+## Установка (6 команд)
 
-And it does this without spinning up an entire qemu-VM, which makes it much, much faster than any other alternatives.
+```bash
+# 1. Обновляем пакеты
+pkg update && pkg upgrade -y
 
-https://f-droid.org/en/packages/com.termux/
+# 2. Ставим git
+pkg install git -y
 
-https://github.com/indigo-dc/udocker
+# 3. Скачиваем репозиторий
+git clone https://github.com/Cicadadenis/cicada-home-assistans-termux.git
 
-<br>
+# 4. Заходим в папку
+cd cicada-home-assistans-termux
 
-# Instructions
+# 5. Устанавливаем udocker
+./install_udocker.sh
 
-In Termux -
-
-```
-pkg i git -y && git clone --depth 1 https://github.com/George-Seven/Termux-Udocker ~/Termux-Udocker; git -C ~/Termux-Udocker pull; bash ~/Termux-Udocker/install_udocker.sh
-```
-
-And done.
-
-#### Help text
-
-```
-udocker --help
-```
-
-#### Keep it updated
-
-```
-cd ~/Termux-Udocker; git pull
-```
-
-<br>
-
-### Examples
-
-Here are example scripts provided for some popular Docker images -
-
-> [!NOTE]
-> Popular Docker repos provide 64-bit images, but not all of them provide the older 32-bit images.
->
-> Running `uname -m`, if it shows 64, then your phone is 64-bit. Which means it'll work for everything given below.
->
-> You can still check if the repo supports 32-bit by checking the tag link next to the name.
-
-<br>
-
-#### Name: Stirling PDF ([frooodle/s-pdf:latest](https://hub.docker.com/r/frooodle/s-pdf/tags))
-
-```
-~/Termux-Udocker/s-pdf.sh
-```
-
-Connect to it at - [http://localhost:8080](http://localhost:8080)
-
-<br>
-
-#### Name: Home-Assistant ([homeassistant/home-assistant:latest](https://hub.docker.com/r/homeassistant/home-assistant/tags))
-
-```
-~/Termux-Udocker/home-assistant.sh
-```
-
-Connect to it at - [http://localhost:8123](http://localhost:8123)
-
-<br>
-
-#### Name: Jupyter ([quay.io/jupyter/base-notebook:latest](https://hub.docker.com/r/jupyter/base-notebook/tags))
-
-```
-~/Termux-Udocker/jupyter.sh
-```
-
-Connect to it at - [http://localhost:8888](http://localhost:8888)
-
-<br>
-
-#### Name: Nextcloud ([nextcloud:latest](https://hub.docker.com/_/nextcloud/tags))
-
-```
-~/Termux-Udocker/nextcloud.sh
-```
-
-Connect to it at - [http://localhost:2080](http://localhost:2080)
-
-<br>
-
-#### Name: ownCloud ([owncloud/server:latest](https://hub.docker.com/_/owncloud/tags))
-
-```
-~/Termux-Udocker/owncloud.sh
-```
-
-Connect to it at - [http://localhost:2081](http://localhost:2081)
-
-<br>
-
-#### Name: Calibre-Web ([lscr.io/linuxserver/calibre:latest](https://hub.docker.com/r/linuxserver/calibre-web/tags))
-
-```
-~/Termux-Udocker/calibre-web.sh
-```
-
-Connect to it at - [http://localhost:8031](http://localhost:8031)
-
-> [!NOTE]
-> Default Calibre-Web -  
-> username: admin  
-> password: admin123
-
-<br>
-
-#### Name: HTTPD ([httpd:latest](https://hub.docker.com/_/httpd/tags))
-
-```
-~/Termux-Udocker/httpd.sh
-```
-
-Connect to it at - [http://localhost:2082](http://localhost:2082)
-
-<br>
-
-#### Name: Redis ([redis:latest](https://hub.docker.com/_/redis/tags))
-
-```
-~/Termux-Udocker/redis.sh
-```
-
-Connect to it at - [http://localhost:6379](http://localhost:6379)
-
-<br>
-
-#### Name: Jellyfin ([jellyfin/jellyfin:latest](https://hub.docker.com/r/jellyfin/jellyfin/tags))
-
-```
-~/Termux-Udocker/jellyfin.sh
-```
-
-Connect to it at - [http://localhost:8096](http://localhost:8096)
-
-<br>
-
-#### Name: JDownloader ([antlafarge/jdownloader:dev-alpine-openjdk17](https://hub.docker.com/r/antlafarge/jdownloader/tags))
-
-```
-JD_EMAIL="your_email" JD_PASSWORD="your_password" JD_DEVICENAME="my_mobile" ~/Termux-Udocker/jdownloader.sh
-```
-
-Connect to it at - [https://my.jdownloader.org/](https://my.jdownloader.org/) or [Android client](https://play.google.com/store/apps/details?id=com.simonsturge.myjdownloader).
-
-> [!NOTE]
-> For authentication, replace `your_email` with login email, and `your_password` with login password.  
-> 
-> Downloads and configs stored in folder Downloads/JDownloader
-
-<br>
-
-#### Name: Puter ([ghcr.io/heyputer/puter:latest](https://github.com/heyputer/puter/pkgs/container/puter))
-
-```
-~/Termux-Udocker/puter.sh
-```
-
-Connect to it at - [http://puter.localhost:4100](http://puter.localhost:4100)
-
-<br>
-
-#### ROS - Robot Operating System ([ghcr.io/sloretz/ros:jazzy-ros-base](https://hub.docker.com/_/ros/tags))
-
-```
-~/Termux-Udocker/ros.sh
-```
-
-<br>
-
-### Customize
-
-#### Change Port
-
-```
-PORT=9080 ~/Termux-Udocker/s-pdf.sh
-```
-
-Add `PORT=number` before the script. Port must be from 1024~65535.
-
-<br>
-
-#### Run custom commands
-
-To override the default startup commands, append your own commands after the script, like this -
-
-```
-~/Termux-Udocker/s-pdf.sh 'echo hello world; echo hi'
-```
-
-<br>
-
-### Tips
-
-#### List containers
-
-```
-udocker ps
-```
-
-#### Remove containers
-
-```
-udocker rm "container_name"
-```
-
-#### List images
-
-```
-udocker images
-```
-
-#### Remove images
-
-```
-udocker rmi "image_name"
-```
-
-<br>
-
+# 6. Запускаем установку и старт Home Assistant
+./home-assistant.sh
